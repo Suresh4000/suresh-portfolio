@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 
 const projects = [
   { number: '01', category: 'WEB APPLICATION', title: 'Garage Management Platform', description: 'A multi-location garage management system in development, focused on organising workshop operations through a single web application.', tags: ['React', 'JavaScript', 'Application UI'], status: 'In development', visual: 'garage' },
@@ -75,13 +76,35 @@ function ProjectVisual({ type }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [formStatus, setFormStatus] = useState('idle')
 
   const closeMenu = () => setMenuOpen(false)
-  const submitContact = (event) => {
+  const submitContact = async (event) => {
     event.preventDefault()
-    const subject = encodeURIComponent('Portfolio enquiry from ' + form.name)
-    const body = encodeURIComponent('Name: ' + form.name + '\\nEmail: ' + form.email + '\\n\\n' + form.message)
-    window.location.href = 'mailto:sureshkumarmr2004@gmail.com?subject=' + subject + '&body=' + body
+    setFormStatus('sending')
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    if (!serviceId || !templateId || !publicKey) {
+      setFormStatus('error')
+      return
+    }
+
+    try {
+      await emailjs.send(serviceId, templateId, {
+        from_name: form.name,
+        reply_to: form.email,
+        subject: `Portfolio enquiry from ${form.name}`,
+        message: form.message,
+      }, { publicKey })
+      setFormStatus('success')
+      setForm({ name: '', email: '', message: '' })
+    } catch (error) {
+      console.error('EmailJS contact form error:', error)
+      setFormStatus('error')
+    }
   }
 
   return (
@@ -151,7 +174,7 @@ function App() {
           <div className="section-wrap">
             <div className="section-label"><span>03 / CONTACT</span><span>HAVE SOMETHING IN MIND?</span></div>
             <div className="contact-layout"><div className="contact-copy"><p className="eyebrow">LET'S START A CONVERSATION</p><h2>Let's make<br />something <em>matter.</em></h2><p>Have a project, an opportunity or an idea you'd like to discuss? I'd be happy to hear from you.</p><a className="contact-email" href="mailto:sureshkumarmr2004@gmail.com">sureshkumarmr2004@gmail.com <Arrow diagonal /></a><div className="social-links"><a href="https://www.linkedin.com/in/sureshkumarmr/" target="_blank" rel="noreferrer">LINKEDIN <Arrow diagonal /></a><a href="https://github.com/Suresh4000/" target="_blank" rel="noreferrer">GITHUB <Arrow diagonal /></a></div></div>
-              <form className="contact-form" onSubmit={submitContact}><label>YOUR NAME<input required value={form.name} onChange={event => setForm({ ...form, name: event.target.value })} placeholder="Name" /></label><label>EMAIL ADDRESS<input required type="email" value={form.email} onChange={event => setForm({ ...form, email: event.target.value })} placeholder="you@example.com" /></label><label>YOUR MESSAGE<textarea required rows="3" value={form.message} onChange={event => setForm({ ...form, message: event.target.value })} placeholder="Tell me a little about it..." /></label><button type="submit">Send an enquiry <Arrow diagonal /></button><small>Opens your email app with your message ready to send.</small></form>
+              <form className="contact-form" onSubmit={submitContact}><label>YOUR NAME<input required maxLength={100} value={form.name} onChange={event => { setForm({ ...form, name: event.target.value }); setFormStatus('idle') }} placeholder="Name" /></label><label>EMAIL ADDRESS<input required type="email" maxLength={254} value={form.email} onChange={event => { setForm({ ...form, email: event.target.value }); setFormStatus('idle') }} placeholder="you@example.com" /></label><label>YOUR MESSAGE<textarea required maxLength={4000} rows="3" value={form.message} onChange={event => { setForm({ ...form, message: event.target.value }); setFormStatus('idle') }} placeholder="Tell me a little about it..." /></label><button type="submit" disabled={formStatus === 'sending'}>{formStatus === 'sending' ? 'Sending...' : 'Send an enquiry'} <Arrow diagonal /></button><small className={`form-feedback form-feedback-${formStatus}`} role="status" aria-live="polite">{formStatus === 'success' ? 'Thanks! Your message has been sent.' : formStatus === 'error' ? 'Message could not be sent. Please try again or email me directly.' : formStatus === 'sending' ? 'Sending your message securely...' : 'Your message will be sent directly to my inbox.'}</small></form>
             </div>
             <footer className="footer"><a className="brand" href="#home">suresh<span>.</span></a><span>DESIGNED & BUILT WITH CURIOSITY</span><a href="#home">BACK TO TOP ↑</a><small>© {new Date().getFullYear()} SURESH KUMAR</small></footer>
           </div>

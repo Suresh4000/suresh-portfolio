@@ -12,6 +12,30 @@ const projects = [
   },
   {
     number: '02',
+    category: 'WEBSITE & CRM',
+    title: 'Website & CRM Platform',
+    description: 'A business website paired with CRM functionality, built to support its digital presence and customer workflow.',
+    tags: ['Next.js', 'CRM', 'JavaScript'],
+    visual: 'business',
+  },
+  {
+    number: '03',
+    category: 'CONSTRUCTION WEBSITE',
+    title: 'Construction & Property Website',
+    description: 'A WordPress website for a builder and construction business, presenting its services and property offerings.',
+    tags: ['WordPress', 'CMS', 'Responsive Design'],
+    visual: 'portfolio',
+  },
+  {
+    number: '04',
+    category: 'PRODUCT WEBSITE',
+    title: 'Door Accessories Website',
+    description: 'A WordPress product website showcasing door accessories and helping visitors explore the product range.',
+    tags: ['WordPress', 'Product Showcase', 'CMS'],
+    visual: 'business',
+  },
+  {
+    number: '05',
     category: 'CORPORATE WEBSITE',
     title: 'Business Website Experience',
     description: 'Responsive website development and ongoing improvements, including content updates, CMS maintenance and quality checks.',
@@ -21,7 +45,7 @@ const projects = [
     visual: 'business',
   },
   {
-    number: '03',
+    number: '06',
     category: 'PERSONAL PROJECT',
     title: 'Developer Portfolio',
     description: 'A personal React and Vite website created to present my work, frontend skills and development journey.',
@@ -84,13 +108,13 @@ function ProjectVisual({ type }) {
   if (type === 'business') return (
     <div className="project-visual business-visual">
       <div className="business-copy"><small>TECHNOLOGY / STRATEGY</small><b>Build what<br />moves <em>you.</em></b><span>Digital experiences for what comes next.</span></div>
-      <div className="business-orb" /><span className="visual-note">DIGITAL PRESENCE / 02</span>
+      <div className="business-orb" /><span className="visual-note">DIGITAL PRESENCE</span>
     </div>
   )
   return (
     <div className="project-visual portfolio-visual">
       <div className="portfolio-window"><div className="mock-top"><b>MY PORTFOLIO</b><WindowDots /></div><div className="portfolio-copy"><small>HELLO, WORLD.</small><b>Code with<br /><em>intention.</em></b><div className="portfolio-line" /><div className="portfolio-blocks"><i /><i /><i /></div></div></div>
-      <span className="visual-note">PERSONAL WORK / 03</span>
+      <span className="visual-note">WEB EXPERIENCE</span>
     </div>
   )
 }
@@ -103,7 +127,7 @@ function App() {
   const submitContact = (event) => {
     event.preventDefault()
     const subject = encodeURIComponent('Portfolio enquiry from ' + form.name)
-    const body = encodeURIComponent('Name: ' + form.name + '\nEmail: ' + form.email + '\n\n' + form.message)
+    const body = encodeURIComponent('Name: ' + form.name + '\\nEmail: ' + form.email + '\\n\\n' + form.message)
     window.location.href = 'mailto:sureshkumarmr2004@gmail.com?subject=' + subject + '&body=' + body
   }
 
@@ -154,7 +178,7 @@ function App() {
             <div className="projects-heading"><h2>Work with<br /><em>purpose.</em></h2><p>A selection of website and application work that reflects what I build and what I'm learning along the way.</p></div>
             <div className="project-grid">{projects.map(project => <article className={'project-card project-' + project.visual} key={project.number}>
               <ProjectVisual type={project.visual} />
-              <div className="project-info"><div className="project-meta"><span>{project.category}</span><span>{project.number} / 03</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-bottom"><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{project.status ? <span className="project-status"><i />{project.status}</span> : <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a>}</div></div>
+              <div className="project-info"><div className="project-meta"><span>{project.category}</span><span>{project.number} / 06</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-bottom"><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{project.status ? <span className="project-status"><i />{project.status}</span> : project.href ? <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a> : null}</div></div>
             </article>)}</div>
           </div>
         </section>

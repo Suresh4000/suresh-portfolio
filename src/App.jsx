@@ -1,59 +1,12 @@
 import { useState } from 'react'
 
 const projects = [
-  {
-    number: '01',
-    category: 'WEB APPLICATION',
-    title: 'Garage Management Platform',
-    description: 'A multi-location garage management application in development, planned around the day-to-day needs of workshop teams.',
-    tags: ['React', 'JavaScript', 'Responsive UI'],
-    status: 'In development',
-    visual: 'garage',
-  },
-  {
-    number: '02',
-    category: 'WEBSITE & CRM',
-    title: 'Website & CRM Platform',
-    description: 'A business website paired with CRM functionality, built to support its digital presence and customer workflow.',
-    tags: ['Next.js', 'CRM', 'JavaScript'],
-    visual: 'business',
-  },
-  {
-    number: '03',
-    category: 'CONSTRUCTION WEBSITE',
-    title: 'Construction & Property Website',
-    description: 'A WordPress website for a builder and construction business, presenting its services and property offerings.',
-    tags: ['WordPress', 'CMS', 'Responsive Design'],
-    visual: 'portfolio',
-  },
-  {
-    number: '04',
-    category: 'PRODUCT WEBSITE',
-    title: 'Door Accessories Website',
-    description: 'A WordPress product website showcasing door accessories and helping visitors explore the product range.',
-    tags: ['WordPress', 'Product Showcase', 'CMS'],
-    visual: 'business',
-  },
-  {
-    number: '05',
-    category: 'CORPORATE WEBSITE',
-    title: 'Business Website Experience',
-    description: 'Responsive website development and ongoing improvements, including content updates, CMS maintenance and quality checks.',
-    tags: ['HTML & CSS', 'JavaScript', 'CMS'],
-    href: 'https://svaantech.com/',
-    action: 'View website',
-    visual: 'business',
-  },
-  {
-    number: '06',
-    category: 'PERSONAL PROJECT',
-    title: 'Developer Portfolio',
-    description: 'A personal React and Vite website created to present my work, frontend skills and development journey.',
-    tags: ['React', 'Vite', 'CSS'],
-    href: 'https://sureshkumar-iota.vercel.app/',
-    action: 'View current version',
-    visual: 'portfolio',
-  },
+  { number: '01', category: 'WEB APPLICATION', title: 'Garage Management Platform', description: 'A multi-location garage management system in development, focused on organising workshop operations through a single web application.', tags: ['React', 'JavaScript', 'Application UI'], status: 'In development', visual: 'garage' },
+  { number: '02', category: 'WEBSITE + CRM', title: 'Business Website & CRM', description: 'A Next.js website integrated with CRM functionality, bringing the public-facing website and customer management experience together.', tags: ['Next.js', 'CRM Integration', 'JavaScript'], visual: 'business' },
+  { number: '03', category: 'CONSTRUCTION / PROPERTY', title: 'Construction & Property Website', description: 'A WordPress website for a construction and property business, presenting its services and property-related information in a clear structure.', tags: ['WordPress', 'CMS', 'Responsive Layout'], visual: 'portfolio' },
+  { number: '04', category: 'PRODUCT WEBSITE', title: 'Door Accessories Website', description: 'A WordPress website focused on showcasing a range of door accessories and making product information easy for visitors to explore.', tags: ['WordPress', 'Product Catalogue', 'Content Management'], visual: 'business' },
+  { number: '05', category: 'CORPORATE WEBSITE', title: 'Business Website Experience', description: 'Website development and maintenance covering responsive presentation, content updates, CMS changes and routine quality checks.', tags: ['HTML', 'CSS', 'JavaScript', 'WordPress'], href: 'https://svaantech.com/', action: 'View website', visual: 'business' },
+  { number: '06', category: 'PERSONAL PROJECT', title: 'Developer Portfolio', description: 'A React and Vite portfolio built to present my frontend skills, selected work and ongoing development journey.', tags: ['React', 'Vite', 'CSS'], href: 'https://sureshkumar-iota.vercel.app/', action: 'View current version', visual: 'portfolio' },
 ]
 
 const skills = ['JavaScript', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Bootstrap', 'WordPress', 'Shopify CMS', 'Git & GitHub']
@@ -175,7 +128,7 @@ function App() {
         <section className="projects-section" id="projects">
           <div className="section-wrap">
             <div className="section-label"><span>02 / SELECTED PROJECTS</span><span>EXPLORATIONS & BUILDS</span></div>
-            <div className="projects-heading"><h2>Work with<br /><em>purpose.</em></h2><p>A selection of website and application work that reflects what I build and what I'm learning along the way.</p></div>
+            <div className="projects-heading"><h2>Work with<br /><em>purpose.</em></h2><p>A mix of web applications and business websites, built with different tools to solve different needs.</p></div>
             <div className="project-grid">{projects.map(project => <article className={'project-card project-' + project.visual} key={project.number}>
               <ProjectVisual type={project.visual} />
               <div className="project-info"><div className="project-meta"><span>{project.category}</span><span>{project.number} / 06</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-bottom"><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{project.status ? <span className="project-status"><i />{project.status}</span> : project.href ? <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a> : null}</div></div>

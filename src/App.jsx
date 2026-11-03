@@ -2,78 +2,100 @@ import { useState } from 'react'
 
 const projects = [
   {
-    id: '01',
-    type: 'WEB APPLICATION',
+    number: '01',
+    category: 'WEB APPLICATION',
     title: 'Garage Management Platform',
-    intro: 'Bringing workshop operations into one connected workspace.',
-    description: 'A multi-location management platform concept focused on the everyday workflows of garage teams. The project is being developed with a core-first approach, with modules planned for operations, inventory, billing and reporting.',
-    stack: ['React', 'JavaScript', 'Responsive UI'],
+    description: 'A multi-location garage management application in development, planned around the day-to-day needs of workshop teams.',
+    tags: ['React', 'JavaScript', 'Responsive UI'],
     status: 'In development',
     visual: 'garage',
-    size: 'wide',
   },
   {
-    id: '02',
-    type: 'CORPORATE WEBSITE',
+    number: '02',
+    category: 'CORPORATE WEBSITE',
     title: 'Business Website Experience',
-    intro: 'A clear, responsive digital presence for a technology business.',
-    description: 'Professional website development and ongoing improvements, including responsive layouts, content updates, CMS maintenance and practical quality checks across key pages.',
-    stack: ['HTML & CSS', 'JavaScript', 'CMS'],
+    description: 'Responsive website development and ongoing improvements, including content updates, CMS maintenance and quality checks.',
+    tags: ['HTML & CSS', 'JavaScript', 'CMS'],
     href: 'https://svaantech.com/',
-    action: 'View live website',
-    visual: 'corporate',
+    action: 'View website',
+    visual: 'business',
   },
   {
-    id: '03',
-    type: 'PERSONAL PROJECT',
+    number: '03',
+    category: 'PERSONAL PROJECT',
     title: 'Developer Portfolio',
-    intro: 'A focused space for sharing work and the way I build.',
-    description: 'A React and Vite portfolio built to present my frontend experience, selected work and learning journey through a simple, considered interface.',
-    stack: ['React', 'Vite', 'CSS'],
+    description: 'A personal React and Vite website created to present my work, frontend skills and development journey.',
+    tags: ['React', 'Vite', 'CSS'],
     href: 'https://sureshkumar-iota.vercel.app/',
     action: 'View current version',
     visual: 'portfolio',
   },
 ]
 
-const skillGroups = [
-  { name: 'Frontend', values: ['JavaScript', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Bootstrap'] },
-  { name: 'Platforms', values: ['WordPress', 'Shopify CMS'] },
-  { name: 'Workflow', values: ['Git & GitHub', 'VS Code', 'Cursor', 'Antigravity', 'Figma'] },
-]
+const skills = ['JavaScript', 'React', 'HTML', 'CSS', 'Tailwind CSS', 'Bootstrap', 'WordPress', 'Shopify CMS', 'Git & GitHub']
 
 function Arrow({ diagonal = false }) {
   return <span className="arrow" aria-hidden="true">{diagonal ? '↗' : '→'}</span>
 }
 
-function ProjectArtwork({ type }) {
-  if (type === 'garage') return (
-    <div className="artwork artwork-garage" aria-hidden="true">
-      <div className="garage-orbit orbit-one" /><div className="garage-orbit orbit-two" />
-      <div className="garage-screen">
-        <div className="screen-head"><span className="screen-brand">WORKSPACE<span> / 01</span></span><span className="screen-dots">•••</span></div>
-        <div className="screen-body"><aside><b>G.</b><i /><i /><i /><i /></aside><div className="screen-main"><small>OVERVIEW / MONDAY</small><strong>Workshop overview</strong><div className="screen-metrics"><i /><i /><i /></div><div className="screen-table"><i /><i /><i /><i /></div></div></div>
+function WindowDots() {
+  return <span className="window-dots"><i /><i /><i /></span>
+}
+
+function HeroArtwork() {
+  return (
+    <div className="hero-art" aria-label="A visual preview of frontend work">
+      <div className="art-shape shape-pink" />
+      <div className="art-shape shape-yellow" />
+      <div className="art-browser browser-back">
+        <div className="browser-bar"><WindowDots /><span>PROJECT / INTERFACE</span></div>
+        <div className="browser-content">
+          <div className="mini-sidebar"><b>SK.</b><i /><i /><i /><i /></div>
+          <div className="mini-main"><span className="mini-kicker">BUILD / TEST / IMPROVE</span><b>Ideas into<br />interfaces.</b><div className="mini-lines"><i /><i /><i /></div><div className="mini-pills"><i /><i /><i /></div></div>
+        </div>
       </div>
-      <span className="artwork-index">01 — OPERATIONS</span>
+      <div className="floating-code">
+        <div className="code-heading"><WindowDots /><span>App.jsx</span><span>REACT</span></div>
+        <div className="code-content">
+          <p><b>01</b> <i>const</i> <em>build</em> = () =&gt; {'{'}</p>
+          <p><b>02</b> &nbsp; solveProblems()</p>
+          <p><b>03</b> &nbsp; createExperiences()</p>
+          <p><b>04</b> {'}'}</p>
+          <p><b>05</b> <strong>// keep learning</strong></p>
+        </div>
+      </div>
+      <div className="art-caption caption-left">THOUGHTFUL INTERFACES</div>
+      <div className="art-caption caption-right">MADE TO WORK ↗</div>
+      <span className="art-spark">✳</span>
     </div>
   )
-  if (type === 'corporate') return (
-    <div className="artwork artwork-corporate" aria-hidden="true">
-      <div className="corporate-grid" /><div className="corporate-glow glow-a" /><div className="corporate-glow glow-b" />
-      <div className="corporate-type"><span>TECHNOLOGY / STRATEGY / GROWTH</span><b>Build what<br />moves <em>you.</em></b><i /><small>Digital experiences for what comes next.</small></div>
-      <span className="artwork-index">02 — DIGITAL PRESENCE</span>
+}
+
+function ProjectVisual({ type }) {
+  if (type === 'garage') return (
+    <div className="project-visual garage-visual">
+      <div className="garage-ui">
+        <div className="mock-top"><b>WORKSPACE</b><span>OVERVIEW　 INVENTORY　 REPORTS</span><WindowDots /></div>
+        <div className="mock-body"><aside><b>G.</b><i /><i /><i /><i /></aside><div className="mock-content"><small>MONDAY / OVERVIEW</small><h4>Workshop overview</h4><div className="mock-stats"><i /><i /><i /></div><div className="mock-table"><i /><i /><i /><i /></div></div></div>
+      </div>
+      <span className="visual-note">OPERATIONS / 01</span>
+    </div>
+  )
+  if (type === 'business') return (
+    <div className="project-visual business-visual">
+      <div className="business-copy"><small>TECHNOLOGY / STRATEGY</small><b>Build what<br />moves <em>you.</em></b><span>Digital experiences for what comes next.</span></div>
+      <div className="business-orb" /><span className="visual-note">DIGITAL PRESENCE / 02</span>
     </div>
   )
   return (
-    <div className="artwork artwork-portfolio" aria-hidden="true">
-      <div className="portfolio-frame"><div className="portfolio-top"><i /><i /><i /><span>MY / DIGITAL SPACE</span></div><div className="portfolio-inner"><small>HELLO, WORLD.</small><b>Code with<br /><em>intention.</em></b><div className="portfolio-rule" /><div className="portfolio-squares"><i /><i /><i /></div></div></div>
-      <span className="artwork-index">03 — PERSONAL WORK</span>
+    <div className="project-visual portfolio-visual">
+      <div className="portfolio-window"><div className="mock-top"><b>MY PORTFOLIO</b><WindowDots /></div><div className="portfolio-copy"><small>HELLO, WORLD.</small><b>Code with<br /><em>intention.</em></b><div className="portfolio-line" /><div className="portfolio-blocks"><i /><i /><i /></div></div></div>
+      <span className="visual-note">PERSONAL WORK / 03</span>
     </div>
   )
 }
 
 function App() {
-  const [dark, setDark] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
@@ -86,67 +108,67 @@ function App() {
   }
 
   return (
-    <div className={dark ? 'site theme-dark' : 'site theme-light'}>
+    <div className="site">
       <header className="topbar">
-        <a className="brand" href="#home" onClick={closeMenu}>SK<span>.</span></a>
+        <a className="brand" href="#home" onClick={closeMenu}>suresh<span>.</span></a>
         <nav className={menuOpen ? 'nav nav-open' : 'nav'}>
           <a href="#about" onClick={closeMenu}>About</a>
           <a href="#projects" onClick={closeMenu}>Projects</a>
-          <button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle colour theme"><span>{dark ? '☼' : '◐'}</span><small>{dark ? 'LIGHT' : 'DARK'}</small></button>
-          <a className="nav-contact" href="#contact" onClick={closeMenu}>Let's talk <Arrow diagonal /></a>
+          <a href="#contact" onClick={closeMenu}>Contact</a>
+          <a className="nav-cta" href="#contact" onClick={closeMenu}>Let's talk <Arrow diagonal /></a>
         </nav>
         <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? '×' : '☰'}</button>
       </header>
 
       <main>
-        <section className="hero section-wrap" id="home">
-          <div className="hero-meta"><span><i /> OPEN TO FRONTEND OPPORTUNITIES</span><span>WEB SOLUTIONS ENGINEER / INDIA</span></div>
-          <div className="hero-layout">
-            <div className="hero-copy">
-              <p className="eyebrow">HELLO, I'M SURESH KUMAR</p>
-              <h1>I build<br /><em>for the web.</em></h1>
-              <p className="hero-description">Frontend developer focused on turning ideas into clear, responsive and useful digital experiences with JavaScript and React.</p>
-              <div className="hero-actions"><a className="button-primary" href="#projects">Explore my work <Arrow diagonal /></a><a className="text-link" href="#contact">Let's connect <Arrow /></a></div>
+        <section className="hero" id="home">
+          <div className="hero-inner">
+            <div className="hero-topline"><span><i /> WEB SOLUTIONS ENGINEER</span><span>BASED IN INDIA · SINCE 2024</span></div>
+            <div className="hero-grid">
+              <HeroArtwork />
+              <div className="hero-copy">
+                <p className="eyebrow">HELLO, I'M SURESH KUMAR</p>
+                <h1>Building for<br />the <em>better web.</em></h1>
+                <p className="hero-description">I create responsive websites and thoughtful frontend experiences with JavaScript and React.</p>
+                <div className="hero-actions"><a className="button-primary" href="#projects">Explore my work <Arrow diagonal /></a><a className="hero-link" href="#about">A little about me <Arrow /></a></div>
+              </div>
             </div>
-            <div className="hero-visual" aria-label="Abstract frontend development composition">
-              <div className="visual-grid" /><div className="visual-ring ring-a" /><div className="visual-ring ring-b" />
-              <div className="code-card"><div className="code-card-top"><span>BUILD / ITERATE / REFINE</span><i>•••</i></div><div className="code-lines"><span><b>01</b><i className="code-purple">const</i> <i className="code-green">idea</i> = <i className="code-orange">'possible'</i></span><span><b>02</b><i className="code-purple">function</i> <i className="code-blue">build</i>() {'{'}</span><span><b>03</b>&nbsp;&nbsp;makeItUseful()</span><span><b>04</b>{'}'}</span><span><b>05</b><i className="code-green">// keep improving</i></span></div><div className="code-card-foot"><span>REACT + JAVASCRIPT</span><span className="live-dot" /> <span>IN PROGRESS</span></div></div>
-              <div className="orbit-label label-one">THOUGHTFUL UI</div><div className="orbit-label label-two">CLEAN CODE ↗</div>
-              <div className="hero-stamp">SK<span>®</span></div>
-            </div>
+            <div className="hero-bottom"><span>FRONTEND DEVELOPMENT / DIGITAL EXPERIENCES</span><a href="#about">SCROLL TO EXPLORE ↓</a></div>
           </div>
-          <div className="hero-bottom"><span>01 / INTRODUCTION</span><span className="hero-bottom-line" /><a href="#about">SCROLL TO DISCOVER <b>↓</b></a><span>EST. 2024</span></div>
         </section>
 
-        <section className="about-section" id="about"><div className="section-wrap">
-          <div className="section-heading"><span>01 — ABOUT</span><span>A LITTLE CONTEXT</span></div>
-          <div className="about-grid">
-            <div className="about-statement"><p className="eyebrow">A DEVELOPER WHO STAYS CURIOUS</p><h2>Good work starts<br />with <em>good questions.</em></h2><div className="about-monogram">S<span>.</span>K</div></div>
-            <div className="about-details"><p className="about-lead">I enjoy understanding a problem first, then building a practical solution that feels simple to use.</p><p>I'm a Web Solutions Engineer with experience in website development and maintenance. My day-to-day work has taught me to care about the details behind a reliable website — from responsive behaviour and clear navigation to updates and quality checks.</p><p>I'm growing deeper into frontend and web application development, with a focus on JavaScript and React. I learn best by building, testing and improving real projects.</p>
-              <div className="about-facts"><div><small>EXPERIENCE</small><b>Since 2024</b></div><div><small>EDUCATION</small><b>B.Sc. Computer Science</b></div><div><small>FOCUS</small><b>Frontend development</b></div></div>
+        <section className="about-section" id="about">
+          <div className="section-wrap">
+            <div className="section-label"><span>01 / ABOUT</span><span>THE PERSON BEHIND THE PIXELS</span></div>
+            <div className="about-layout">
+              <div className="about-heading"><p className="eyebrow">A DEVELOPER WHO STAYS CURIOUS</p><h2>Good ideas<br />deserve <em>good execution.</em></h2><div className="about-mark">S<span>.</span>K</div></div>
+              <div className="about-copy"><p className="about-lead">I like turning real problems into digital experiences that feel clear, useful and easy to navigate.</p><p>I'm a Web Solutions Engineer with hands-on experience in website development and maintenance. My work has helped me build a practical eye for responsive layouts, content structure, usability and the details that keep websites reliable.</p><p>I'm now focused on growing as a frontend developer, building with JavaScript and React, and learning through real projects, testing and iteration.</p><div className="about-facts"><div><small>EXPERIENCE</small><b>Since 2024</b></div><div><small>EDUCATION</small><b>B.Sc. Computer Science</b></div><div><small>FOCUS</small><b>Frontend / React</b></div></div></div>
             </div>
+            <div className="skills-band"><div><span className="eyebrow">TOOLS I WORK WITH</span><p>A growing toolkit for building on the web.</p></div><div className="skill-list">{skills.map(skill => <span key={skill}>{skill}</span>)}</div></div>
           </div>
-          <div className="toolkit"><div className="toolkit-intro"><span>THE TOOLKIT</span><p>Technologies I use across professional work and personal builds.</p></div><div className="toolkit-groups">{skillGroups.map(group => <div className="toolkit-row" key={group.name}><span>{group.name}</span><div>{group.values.map(value => <b key={value}>{value}</b>)}</div></div>)}</div></div>
-        </div></section>
+        </section>
 
-        <section className="projects-section" id="projects"><div className="section-wrap">
-          <div className="section-heading"><span>02 — SELECTED PROJECTS</span><span>WORK IN PROGRESS &amp; BUILT</span></div>
-          <div className="projects-intro"><h2>Ideas, shaped<br />into <em>experiences.</em></h2><p>A few projects that show what I work on, what I care about and how I keep learning through building.</p></div>
-          <div className="project-list">{projects.map(project => <article className={'project project-' + project.visual + (project.size === 'wide' ? ' project-wide' : '')} key={project.id}>
-            <ProjectArtwork type={project.visual} />
-            <div className="project-info"><div className="project-overline"><span>{project.type}</span><span>{project.id} / 03</span></div><h3>{project.title}</h3><p className="project-intro">{project.intro}</p><p className="project-description">{project.description}</p><div className="project-foot"><div className="project-stack">{project.stack.map(item => <span key={item}>{item}</span>)}</div>{project.status ? <span className="project-status"><i /> {project.status}</span> : <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a>}</div></div>
-          </article>)}</div>
-        </div></section>
-
-        <section className="contact-section" id="contact"><div className="section-wrap">
-          <div className="section-heading"><span>03 — CONTACT</span><span>HAVE A GOOD ONE IN MIND?</span></div>
-          <div className="contact-grid"><div className="contact-copy"><p className="eyebrow">LET'S MAKE SOMETHING USEFUL</p><h2>Have a project<br />in <em>mind?</em></h2><p>Whether you're building a product, growing a team or looking for a frontend developer, I'd be glad to hear from you.</p><a className="email-link" href="mailto:sureshkumarmr2004@gmail.com">sureshkumarmr2004@gmail.com <Arrow diagonal /></a><div className="social-links"><a href="https://linkedin.com/in/suresh-kumar-m/" target="_blank" rel="noreferrer">LINKEDIN <Arrow diagonal /></a><a href="https://github.com/Suresh4000/" target="_blank" rel="noreferrer">GITHUB <Arrow diagonal /></a></div></div>
-            <form className="contact-form" onSubmit={submitContact}><label>YOUR NAME<input required value={form.name} onChange={event => setForm({ ...form, name: event.target.value })} placeholder="Name" /></label><label>EMAIL ADDRESS<input required type="email" value={form.email} onChange={event => setForm({ ...form, email: event.target.value })} placeholder="you@example.com" /></label><label>YOUR MESSAGE<textarea required rows="3" value={form.message} onChange={event => setForm({ ...form, message: event.target.value })} placeholder="Tell me a little about it..." /></label><button type="submit">Send an enquiry <Arrow diagonal /></button><small>Opens your email app with your message ready to send.</small></form>
+        <section className="projects-section" id="projects">
+          <div className="section-wrap">
+            <div className="section-label"><span>02 / SELECTED PROJECTS</span><span>EXPLORATIONS & BUILDS</span></div>
+            <div className="projects-heading"><h2>Work with<br /><em>purpose.</em></h2><p>A selection of website and application work that reflects what I build and what I'm learning along the way.</p></div>
+            <div className="project-grid">{projects.map(project => <article className={'project-card project-' + project.visual} key={project.number}>
+              <ProjectVisual type={project.visual} />
+              <div className="project-info"><div className="project-meta"><span>{project.category}</span><span>{project.number} / 03</span></div><h3>{project.title}</h3><p>{project.description}</p><div className="project-bottom"><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{project.status ? <span className="project-status"><i />{project.status}</span> : <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a>}</div></div>
+            </article>)}</div>
           </div>
-        </div></section>
+        </section>
+
+        <section className="contact-section" id="contact">
+          <div className="section-wrap">
+            <div className="section-label"><span>03 / CONTACT</span><span>HAVE SOMETHING IN MIND?</span></div>
+            <div className="contact-layout"><div className="contact-copy"><p className="eyebrow">LET'S START A CONVERSATION</p><h2>Let's make<br />something <em>matter.</em></h2><p>Have a project, an opportunity or an idea you'd like to discuss? I'd be happy to hear from you.</p><a className="contact-email" href="mailto:sureshkumarmr2004@gmail.com">sureshkumarmr2004@gmail.com <Arrow diagonal /></a><div className="social-links"><a href="https://linkedin.com/in/suresh-kumar-m/" target="_blank" rel="noreferrer">LINKEDIN <Arrow diagonal /></a><a href="https://github.com/Suresh4000/" target="_blank" rel="noreferrer">GITHUB <Arrow diagonal /></a></div></div>
+              <form className="contact-form" onSubmit={submitContact}><label>YOUR NAME<input required value={form.name} onChange={event => setForm({ ...form, name: event.target.value })} placeholder="Name" /></label><label>EMAIL ADDRESS<input required type="email" value={form.email} onChange={event => setForm({ ...form, email: event.target.value })} placeholder="you@example.com" /></label><label>YOUR MESSAGE<textarea required rows="3" value={form.message} onChange={event => setForm({ ...form, message: event.target.value })} placeholder="Tell me a little about it..." /></label><button type="submit">Send an enquiry <Arrow diagonal /></button><small>Opens your email app with your message ready to send.</small></form>
+            </div>
+            <footer className="footer"><a className="brand" href="#home">suresh<span>.</span></a><span>DESIGNED & BUILT WITH CURIOSITY</span><a href="#home">BACK TO TOP ↑</a><small>© {new Date().getFullYear()} SURESH KUMAR</small></footer>
+          </div>
+        </section>
       </main>
-
-      <footer className="footer section-wrap"><a className="brand" href="#home">SK<span>.</span></a><p>Built with curiosity and code.</p><span>© {new Date().getFullYear()} SURESH KUMAR</span><a href="#home">BACK TO TOP ↑</a></footer>
     </div>
   )
 }

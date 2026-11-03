@@ -1,46 +1,72 @@
 import { useState } from 'react'
 
 const skills = [
-  { group: 'Frontend', items: ['JavaScript', 'React', 'HTML5', 'CSS3', 'Bootstrap', 'Tailwind CSS'] },
-  { group: 'Web & CMS', items: ['WordPress', 'Shopify CMS', 'Responsive Design', 'Website Maintenance'] },
-  { group: 'Tools', items: ['Git', 'GitHub', 'VS Code', 'Cursor', 'Antigravity', 'Figma'] },
+  { label: 'Frontend', items: ['JavaScript', 'React', 'HTML5', 'CSS3', 'Tailwind CSS', 'Bootstrap'] },
+  { label: 'Platforms', items: ['WordPress', 'Shopify CMS'] },
+  { label: 'Tools', items: ['Git', 'GitHub', 'VS Code', 'Cursor', 'Antigravity', 'Figma'] },
 ]
 
 const projects = [
   {
     number: '01',
-    type: 'Web application · In development',
-    title: 'Bay View Garage Management System',
-    description: 'A multi-location garage management platform planned to bring day-to-day workshop operations into one place, with a focus on core workflows first.',
-    tags: ['React', 'Web Application', 'Multi-location'],
+    category: 'PRODUCT · IN DEVELOPMENT',
+    title: 'Bay View Garage',
+    subtitle: 'A management platform for modern workshops.',
+    description: 'Planning a multi-location garage management system, starting with the core workflows that help workshop teams organise their day-to-day operations.',
+    tags: ['React', 'Web application', 'Multi-location'],
     status: 'In development',
+    visual: 'garage',
   },
   {
     number: '02',
-    type: 'Corporate website · Work experience',
+    category: 'PROFESSIONAL EXPERIENCE',
     title: 'SVaaN Global Tech',
-    description: 'Contributed to the company website and ongoing website development and maintenance work, including responsive checks and content updates.',
-    tags: ['Web Development', 'Responsive UI', 'Website Maintenance'],
-    link: 'https://svaantech.com/',
-    linkLabel: 'Visit website',
+    subtitle: 'Building and maintaining the company web presence.',
+    description: 'Contribute to website development and ongoing maintenance, with attention to responsive layouts, content updates and practical quality checks.',
+    tags: ['Web development', 'Responsive UI', 'CMS'],
+    href: 'https://svaantech.com/',
+    action: 'Visit website',
+    visual: 'svaan',
   },
   {
     number: '03',
-    type: 'Personal project',
-    title: 'Portfolio Website',
-    description: 'A personal space to present my frontend skills, practical work, and the web experiences I build as I continue growing as a developer.',
+    category: 'PERSONAL PROJECT',
+    title: 'Personal portfolio',
+    subtitle: 'A home for my work, experiments and progress.',
+    description: 'A React-based portfolio focused on presenting my frontend experience, selected work and the direction I am growing towards.',
     tags: ['React', 'Vite', 'CSS'],
-    link: 'https://sureshkumar-iota.vercel.app/',
-    linkLabel: 'View current portfolio',
+    href: 'https://sureshkumar-iota.vercel.app/',
+    action: 'View current site',
+    visual: 'portfolio',
   },
 ]
 
 function Arrow({ diagonal = false }) {
-  return <span aria-hidden="true" className="arrow">{diagonal ? '↗' : '→'}</span>
+  return <span className="arrow" aria-hidden="true">{diagonal ? '↗' : '→'}</span>
+}
+
+function ProjectVisual({ type }) {
+  if (type === 'garage') return (
+    <div className="visual visual-garage" aria-hidden="true">
+      <div className="visual-window"><div className="window-top"><i /><i /><i /><span>WORKSHOP / OVERVIEW</span></div><div className="garage-ui"><div className="garage-side"><b>BV.</b><i /><i /><i /><i /></div><div className="garage-main"><span className="ui-kicker">GOOD MORNING</span><b>Workshop overview</b><div className="ui-stats"><i /><i /><i /></div><div className="ui-lines"><i /><i /><i /></div></div></div></div>
+      <span className="visual-caption">WORKSHOP OPERATIONS / 01</span>
+    </div>
+  )
+  if (type === 'svaan') return (
+    <div className="visual visual-svaan" aria-hidden="true">
+      <div className="svaan-orb orb-a" /><div className="svaan-orb orb-b" /><span className="svaan-word">SVaaN<span>.</span></span><span className="svaan-caption">TECHNOLOGY &amp; STRATEGY</span><div className="svaan-grid" />
+    </div>
+  )
+  return (
+    <div className="visual visual-portfolio" aria-hidden="true">
+      <div className="portfolio-browser"><div className="browser-bar"><i /><i /><i /><span> s-kumar / portfolio</span></div><div className="browser-content"><span>HELLO, I'M SURESH</span><b>Building digital<br /><em>experiences.</em></b><i className="browser-line" /><div className="browser-blocks"><i /><i /><i /></div></div></div>
+      <span className="visual-caption">PERSONAL SPACE / 03</span>
+    </div>
+  )
 }
 
 function App() {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
@@ -53,100 +79,71 @@ function App() {
   }
 
   return (
-    <div className={dark ? 'site dark' : 'site'}>
+    <div className={dark ? 'site theme-dark' : 'site theme-light'}>
       <header className="topbar">
-        <a className="brand" href="#home" onClick={closeMenu}>SK<span>.</span></a>
+        <a className="brand" href="#home" onClick={closeMenu}>suresh<span className="brand-dot">.</span><span className="brand-mark">/ portfolio</span></a>
         <button className="menu-toggle" aria-label="Toggle navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? '×' : '☰'}</button>
-        <nav className={menuOpen ? 'nav open' : 'nav'}>
-          {['About', 'Experience', 'Projects', 'Skills', 'Contact'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>
-          ))}
-          <button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle colour theme">{dark ? '☀' : '◐'}</button>
-          <a className="nav-cta" href="#contact" onClick={closeMenu}>Let's talk <Arrow diagonal /></a>
+        <nav className={menuOpen ? 'nav nav-open' : 'nav'}>
+          {['About', 'Experience', 'Work', 'Skills'].map(item => <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>)}
+          <button className="theme-toggle" onClick={() => setDark(!dark)} aria-label="Toggle colour theme"><span>{dark ? '☼' : '◐'}</span><small>{dark ? 'LIGHT' : 'DARK'}</small></button>
+          <a className="nav-contact" href="#contact" onClick={closeMenu}>Let's talk <Arrow diagonal /></a>
         </nav>
       </header>
 
       <main>
         <section className="hero section-wrap" id="home">
-          <div className="hero-copy">
-            <div className="eyebrow"><span className="status-dot" /> WEB SOLUTIONS ENGINEER <span className="eyebrow-line" /></div>
-            <h1>Building thoughtful<br /><em>digital experiences.</em></h1>
-            <p className="hero-lead">I'm Suresh Kumar — a frontend developer focused on JavaScript, React, and creating responsive websites and useful web applications.</p>
-            <div className="hero-actions">
-              <a className="button button-dark" href="#projects">Explore my work <Arrow /></a>
-              <a className="text-link" href="#contact">Let's discuss a project <Arrow diagonal /></a>
-            </div>
-            <div className="hero-meta">
-              <span>BASED IN INDIA</span><span>·</span><span>OPEN TO OPPORTUNITIES</span>
+          <div className="hero-main">
+            <div className="availability"><span className="availability-dot" /> AVAILABLE FOR THE RIGHT OPPORTUNITY</div>
+            <p className="hero-overline">WEB SOLUTIONS ENGINEER <span>·</span> FRONTEND DEVELOPER</p>
+            <h1>Ideas into<br /><span>digital reality<span className="lime-period">.</span></span></h1>
+            <div className="hero-bottom">
+              <p className="hero-description">I'm Suresh Kumar, a frontend developer who enjoys building thoughtful web experiences with JavaScript, React and a sharp eye for the details.</p>
+              <div className="hero-links"><a className="primary-link" href="#work">Explore selected work <Arrow diagonal /></a><a className="secondary-link" href="#contact">Get in touch <Arrow /></a></div>
             </div>
           </div>
-          <div className="hero-art" aria-label="Abstract decorative graphic">
-            <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-            <div className="art-core"><span>SK</span><i>✳</i></div>
-            <div className="art-label label-top">DESIGN <b>+</b> DEVELOPMENT</div>
-            <div className="art-label label-bottom">LEARN · BUILD · IMPROVE</div>
-            <span className="art-cross cross-one">＋</span><span className="art-cross cross-two">✳</span>
+          <div className="hero-art" aria-label="Abstract interactive-inspired visual">
+            <div className="art-grid" /><div className="art-ring ring-one" /><div className="art-ring ring-two" />
+            <div className="art-center"><span className="art-bracket">&lt;</span><span>SK</span><span className="art-bracket">/&gt;</span></div>
+            <div className="art-chip chip-top"><i /> REACT / JAVASCRIPT</div>
+            <div className="art-chip chip-bottom">DESIGNING <span>×</span> BUILDING</div>
+            <span className="art-coordinate">09°N · 78°E</span>
           </div>
-          <a className="scroll-note" href="#about"><span /> SCROLL TO EXPLORE</a>
+          <div className="hero-foot"><span>BASED IN INDIA</span><span className="foot-line" /><span>SCROLL TO EXPLORE <b>↓</b></span><span className="hero-index">01 — 05</span></div>
         </section>
 
-        <section className="intro-band">
-          <div className="section-wrap band-inner"><span>WHAT I CARE ABOUT</span><p>Clear interfaces. Useful functionality. <strong>Experiences that work for people.</strong></p><span className="band-mark">✳</span></div>
+        <div className="ticker" aria-label="Areas of focus"><div className="ticker-track">{Array.from({ length: 2 }).map((_, i) => <span key={i}>FRONTEND DEVELOPMENT <b>✳</b> REACT &amp; JAVASCRIPT <b>✳</b> RESPONSIVE EXPERIENCES <b>✳</b> CONTINUOUS LEARNING <b>✳</b></span>)}</div></div>
+
+        <section className="section-wrap about-section" id="about">
+          <div className="section-topline"><span>01 / A LITTLE ABOUT ME</span><span>THE PERSON BEHIND THE PIXELS</span></div>
+          <div className="about-layout"><h2>Curiosity is<br />part of the <em>process.</em></h2><div className="about-copy"><p className="about-lead">I like understanding how things work, then making them work better for the people using them.</p><p>I'm a Web Solutions Engineer at SVaaN Global Tech. My work spans website development and maintenance, responsive UI checks and solving everyday website issues. Alongside that, I'm building my skills in React and JavaScript to move further into frontend and web application development.</p><div className="about-facts"><div><span>EDUCATION</span><b>B.Sc. Computer Science</b></div><div><span>FOCUS</span><b>Frontend &amp; React</b></div><div><span>APPROACH</span><b>Learn by building</b></div></div></div></div>
         </section>
 
-        <section className="content-section section-wrap" id="about">
-          <div className="section-heading"><span className="section-index">01 / ABOUT</span><h2>Developer by practice.<br /><em>Curious by nature.</em></h2></div>
-          <div className="about-grid">
-            <p className="about-statement">I enjoy turning ideas into clean, accessible, and responsive web experiences.</p>
-            <div className="about-detail">
-              <p>I'm a Web Solutions Engineer at SVaaN Global Tech, where I work on website development and maintenance. My day-to-day experience has helped me build a practical foundation in frontend development, responsive layouts, and solving real website issues.</p>
-              <p>I'm currently deepening my React and JavaScript skills and working towards building more complete web applications.</p>
-              <div className="quick-facts"><div><span>EDUCATION</span><strong>B.Sc. Computer Science</strong></div><div><span>FOCUS</span><strong>Frontend Development</strong></div></div>
-            </div>
-          </div>
+        <section className="experience-section" id="experience"><div className="section-wrap">
+          <div className="section-topline"><span>02 / EXPERIENCE</span><span>GROWTH THROUGH REAL WORK</span></div>
+          <div className="experience-layout"><h2>Where I've<br /><em>been building.</em></h2><article className="experience-card"><div className="experience-meta"><span>2024 — PRESENT</span><span className="current-label"><i /> CURRENT ROLE</span></div><h3>Web Solutions Engineer</h3><p className="experience-company">SVaaN Global Tech <Arrow diagonal /></p><p className="experience-description">Working across website development and maintenance, supporting responsive experiences, website updates and practical quality checks.</p><ul><li>Build and update website interfaces using frontend technologies.</li><li>Maintain CMS-based websites and support content and platform updates.</li><li>Test responsive layouts, navigation and forms across screen sizes.</li></ul><div className="experience-tags"><span>HTML &amp; CSS</span><span>JavaScript</span><span>React</span><span>CMS</span></div></article></div>
+        </div></section>
+
+        <section className="work-section" id="work"><div className="section-wrap">
+          <div className="section-topline"><span>03 / SELECTED WORK</span><span>A FEW THINGS I'VE WORKED ON</span></div>
+          <div className="work-heading"><h2>Made with intent.<br /><em>Built to be useful.</em></h2><p>A selection of professional website work and personal projects. Each one represents a different part of my learning and development journey.</p></div>
+          <div className="project-grid">{projects.map(project => <article className={`project-card project-${project.visual}`} key={project.number}>
+            <ProjectVisual type={project.visual} />
+            <div className="project-content"><div className="project-meta"><span>{project.category}</span><span>{project.number} / 03</span></div><h3>{project.title}</h3><p className="project-subtitle">{project.subtitle}</p><p className="project-description">{project.description}</p><div className="project-bottom"><div className="project-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{project.status ? <span className="project-status">{project.status}</span> : <a href={project.href} target="_blank" rel="noreferrer">{project.action} <Arrow diagonal /></a>}</div></div>
+          </article>)}</div>
+        </div></section>
+
+        <section className="section-wrap skills-section" id="skills">
+          <div className="section-topline"><span>04 / MY TOOLKIT</span><span>TOOLS I WORK WITH &amp; LEARN</span></div>
+          <div className="skills-layout"><h2>The right tool<br />for the <em>job.</em></h2><div className="skills-content"><p>My toolkit keeps evolving. These are the technologies and tools I currently use across work and personal projects.</p>{skills.map(group => <div className="skill-row" key={group.label}><span>{group.label}</span><div>{group.items.map(item => <b key={item}>{item}</b>)}</div></div>)}</div></div>
         </section>
 
-        <section className="content-section section-wrap" id="experience">
-          <div className="section-heading"><span className="section-index">02 / EXPERIENCE</span><h2>Learning through<br /><em>real work.</em></h2></div>
-          <div className="timeline">
-            <div className="timeline-date">2024 — PRESENT</div>
-            <div className="timeline-main"><div className="timeline-title"><h3>Web Solutions Engineer</h3><span className="current-pill">CURRENT</span></div><p className="company">SVaaN Global Tech</p><p>Working across website development and maintenance, supporting responsive experiences, website updates, and practical quality checks.</p><ul><li>Work with frontend technologies including HTML, CSS, JavaScript, and React.</li><li>Maintain and update websites, including CMS-based platforms.</li><li>Check responsive layouts, navigation, and forms across screen sizes.</li></ul></div>
-          </div>
-        </section>
-
-        <section className="projects-section" id="projects">
-          <div className="section-wrap">
-            <div className="section-heading projects-heading"><span className="section-index">03 / SELECTED WORK</span><h2>Things I've worked on<br /><em>and am building.</em></h2><p>A mix of practical website work and personal application development. Project status is shown clearly.</p></div>
-            <div className="project-list">
-              {projects.map((project) => <article className="project-card" key={project.number}>
-                <div className="project-number">{project.number}</div>
-                <div className="project-info"><span className="project-type">{project.type}</span><h3>{project.title}</h3><p>{project.description}</p><div className="tag-list">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div>
-                <div className="project-action">{project.status && <span className="project-status">{project.status}</span>}{project.link && <a href={project.link} target="_blank" rel="noreferrer">{project.linkLabel} <Arrow diagonal /></a>}</div>
-              </article>)}
-            </div>
-          </div>
-        </section>
-
-        <section className="content-section section-wrap" id="skills">
-          <div className="section-heading"><span className="section-index">04 / TOOLKIT</span><h2>Tools for the<br /><em>work at hand.</em></h2></div>
-          <div className="skills-layout"><p className="skills-intro">The technologies and tools I use in my current work and learning journey.</p><div className="skill-groups">{skills.map(group => <div className="skill-group" key={group.group}><h3>{group.group}</h3><div className="skill-chips">{group.items.map(item => <span key={item}>{item}</span>)}</div></div>)}</div></div>
-        </section>
-
-        <section className="contact-section" id="contact">
-          <div className="section-wrap contact-wrap">
-            <div className="section-heading"><span className="section-index">05 / CONTACT</span><h2>Have an idea?<br /><em>Let's make it real.</em></h2><p>Whether you're a recruiter, a team looking for a frontend developer, or have a website project in mind, I'd be glad to hear from you.</p><a className="email-link" href="mailto:sureshkumarmr2004@gmail.com">sureshkumarmr2004@gmail.com <Arrow diagonal /></a></div>
-            <form className="contact-form" onSubmit={submitContact}>
-              <label>Your name<input required value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="Name" /></label>
-              <label>Email address<input required type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} placeholder="you@example.com" /></label>
-              <label>How can I help?<textarea required rows="4" value={form.message} onChange={e => setForm({...form, message: e.target.value})} placeholder="Tell me a little about it..." /></label>
-              <button className="button button-light" type="submit">Start a conversation <Arrow diagonal /></button>
-              <span className="form-note">This opens your email app with the message prepared.</span>
-            </form>
-          </div>
-        </section>
+        <section className="contact-section" id="contact"><div className="section-wrap contact-wrap">
+          <div className="contact-copy"><div className="section-topline"><span>05 / YOUR TURN</span><span>LET'S CONNECT</span></div><h2>Have something<br />in <em>mind?</em></h2><p>I'm open to connecting with teams, recruiters and people building useful things for the web. Tell me what you're working on.</p><a className="contact-email" href="mailto:sureshkumarmr2004@gmail.com">sureshkumarmr2004@gmail.com <Arrow diagonal /></a></div>
+          <form className="contact-form" onSubmit={submitContact}><label>Your name<input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="How should I call you?" /></label><label>Email address<input required type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" /></label><label>A little about your idea<textarea required rows="3" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} placeholder="What's on your mind?" /></label><button type="submit">Send an enquiry <Arrow diagonal /></button><span className="form-note">Opens your email app with your message ready to send.</span></form>
+        </div></section>
       </main>
 
-      <footer className="footer section-wrap"><a className="brand" href="#home">SK<span>.</span></a><span>Designed & built with care.</span><div className="social-links"><a href="https://github.com/Suresh4000/" target="_blank" rel="noreferrer">GITHUB <Arrow diagonal /></a><a href="https://linkedin.com/in/suresh-kumar-m/" target="_blank" rel="noreferrer">LINKEDIN <Arrow diagonal /></a></div><span className="copyright">© {new Date().getFullYear()} Suresh Kumar</span></footer>
+      <footer className="footer section-wrap"><a className="brand" href="#home">suresh<span className="brand-dot">.</span></a><span className="footer-note">Designed with curiosity. Built with code.</span><div className="footer-socials"><a href="https://github.com/Suresh4000/" target="_blank" rel="noreferrer">GITHUB <Arrow diagonal /></a><a href="https://linkedin.com/in/suresh-kumar-m/" target="_blank" rel="noreferrer">LINKEDIN <Arrow diagonal /></a></div><span className="copyright">© {new Date().getFullYear()} SURESH KUMAR</span></footer>
     </div>
   )
 }

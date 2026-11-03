@@ -52,3 +52,13 @@
  .project-info h3{font-size:22px}
  .project-bottom{align-items:flex-start}
 }
+
+
+/* Fixed social rail */
+.floating-socials{position:fixed;z-index:30;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;padding:11px 8px;background:rgba(248,244,233,.94);border:1px solid #ded8ca;border-radius:30px;box-shadow:0 5px 22px #101a4e18;backdrop-filter:blur(12px)}
+.floating-socials a{width:36px;height:36px;display:grid;place-items:center;color:#26327f;border-radius:50%;transition:background .2s,color .2s,transform .2s}
+.floating-socials a:hover{background:#0868f5;color:#fff;transform:translateY(-2px)}
+.floating-socials svg{width:17px;height:17px;display:block}
+.floating-socials a:focus-visible{outline:2px solid #0868f5;outline-offset:3px}
+@media(max-width:650px){.floating-socials{right:10px;gap:6px;padding:7px 5px}.floating-socials a{width:31px;height:31px}.floating-socials svg{width:15px;height:15px}}
+@media(max-width:380px){.floating-socials{right:6px}.floating-socials a{width:28px;height:28px}}
